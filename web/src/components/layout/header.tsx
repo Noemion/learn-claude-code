@@ -16,7 +16,6 @@ const NAV_ITEMS = [
 const LOCALES = [
   { code: "en", label: "EN" },
   { code: "zh", label: "中文" },
-  { code: "ja", label: "日本語" },
 ];
 
 export function Header() {
@@ -24,7 +23,12 @@ export function Header() {
   const pathname = usePathname();
   const locale = useLocale();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("theme") !== "light";
+    }
+    return true;
+  });
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

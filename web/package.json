@@ -8,7 +8,13 @@
     "dev": "next dev",
     "prebuild": "npm run extract",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -H 0.0.0.0 -p 3000",
+    "pm2:start": "pm2 delete web 2>/dev/null; pm2 start npm --name web -- run start",
+    "pm2:stop": "pm2 stop web",
+    "pm2:restart": "pm2 restart web",
+    "deploy": "npm run build && pm2 restart web",
+    "pm2:logs": "pm2 logs web",
+    "pm2:status": "pm2 status web"
   },
   "dependencies": {
     "diff": "^8.0.3",
